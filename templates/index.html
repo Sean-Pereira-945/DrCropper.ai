@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ML API with 3D-Themed Design & Farm Background -->
+<head>
+  <meta charset="UTF-8" />
+  <title>Dr. Cropper </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+  <!-- Inline 3D-Themed CSS with Farm Background -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arimo', sans-serif;
+      /* Farm Background Image */
+      background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+      padding: 20px;
+      /* Overlay for readability */
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 60, 30, 0.65); /* Dark green overlay */
+      z-index: -1;
+    }
+
+    .login {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25),
+                  0 10px 15px rgba(0, 0, 0, 0.15);
+      transform-style: preserve-3d;
+      transform: translateY(0) rotateX(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 10;
+    }
+
+    .login:hover {
+      transform: translateY(-8px) rotateX(4deg);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35),
+                  0 20px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.6em;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 25px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    h1#predi {
+      font-family: 'Arimo', sans-serif;
+      font-size: 1.5em;
+      color: #e0ffe0;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 14px 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    input {
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1em;
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1),
+                  inset 0 -3px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      transform: translateZ(10px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15),
+                  inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+      background: white;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 16px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(45deg, #2e5a32, #4a7c59);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2),
+                  0 4px 6px rgba(0, 0, 0, 0.1);
+      transform: translateZ(20px);
+      transition: all 0.3s ease;
+      font-family: 'Arimo', sans-serif;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #3a6a42, #5a8b69);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25),
+                  0 6px 8px rgba(0, 0, 0, 0.15);
+      transform: translateY(-3px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 520px) {
+      .login {
+        padding: 30px 20px;
+      }
+      h1 {
+        font-size: 2.2em;
+      }
+      h1#predi {
+        font-size: 1.3em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login">
+    <h1>Dr. Cropper's Recommendation</h1>
+
+    <!-- Input Form -->
+    <form action="{{ url_for('predict') }}" method="POST">
+      <input type="number" step="any" name="N" placeholder="Nitrogen (N)" required>
+      <input type="number" step="any" name="P" placeholder="Phosphorus (P)" required>
+      <input type="number" step="any" name="K" placeholder="Potassium (K)" required>
+      <input type="number" step="any" name="temperature" placeholder="Temperature" required>
+      <input type="number" step="any" name="humidity" placeholder="Humidity" required>
+      <input type="number" step="any" name="ph" placeholder="pH" required>
+      <input type="number" step="any" name="rainfall" placeholder="Rainfall" required>
+      <button type="submit">Find out your crop</button>
+    </form>
+
+    <!-- Prediction Output -->
+    {% if prediction_text %}
+      <h1 id="predi">{{ prediction_text }}</h1>
+    {% endif %}
+  </div>
+</body>
+</html>
