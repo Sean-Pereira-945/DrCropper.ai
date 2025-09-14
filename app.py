@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import random
 import json
+import os
+from lib.supabase import supabase
 
 app = Flask(__name__)
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Simple crop recommendation logic without external dependencies
 CROP_DATA = {
@@ -42,9 +45,16 @@ def landing():
 def predict_page():
     return render_template('index.html')
 
+@app.route('/history-page')
+def history_page():
+    return render_template('history.html')
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        # Get user info from request (in a real app, this would come from session/auth)
+        user_email = request.form.get('user_email', 'anonymous@example.com')
+        
         # Get form data
         temperature = float(request.form['temperature'])
         humidity = float(request.form['humidity'])
@@ -58,6 +68,41 @@ def predict():
         prediction = recommend_crop(temperature, humidity, ph, rainfall, nitrogen, phosphorus, potassium)
         confidence = random.uniform(75, 95)  # Simulate confidence score
         
+        # Store prediction in database
+        try:
+            # First, ensure user exists in user_profiles
+            existing_user = supabase.select('user_profiles', 'id', {'email': f'eq.{user_email}'})
+            
+            if not existing_user:
+                # Create user profile
+                user_data = {
+                    'email': user_email,
+                    'name': user_email.split('@')[0]
+                }
+                user_result = supabase.insert('user_profiles', user_data)
+                user_id = user_result[0]['id'] if user_result else None
+            else:
+                user_id = existing_user[0]['id']
+            
+            # Store the prediction
+            if user_id:
+                prediction_data = {
+                    'user_id': user_id,
+                    'nitrogen': nitrogen,
+                    'phosphorus': phosphorus,
+                    'potassium': potassium,
+                    'temperature': temperature,
+                    'humidity': humidity,
+                    'ph': ph,
+                    'rainfall': rainfall,
+                    'predicted_crop': prediction,
+                    'confidence': round(confidence, 2)
+                }
+                supabase.insert('crop_predictions', prediction_data)
+        except Exception as db_error:
+            print(f"Database error: {db_error}")
+            # Continue without storing to database
+        
         return jsonify({
             'crop': prediction,
             'confidence': round(confidence, 2),
@@ -66,5 +111,27 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
+@app.route('/history')
+def prediction_history():
+    """Get prediction history for a user"""
+    try:
+        user_email = request.args.get('email', 'anonymous@example.com')
+        
+        # Get user's prediction history
+        user_data = supabase.select('user_profiles', 'id', {'email': f'eq.{user_email}'})
+        
+        if not user_data:
+            return jsonify({'predictions': []})
+        
+        user_id = user_data[0]['id']
+        predictions = supabase.select(
+            'crop_predictions', 
+            'predicted_crop,confidence,created_at,nitrogen,phosphorus,potassium,temperature,humidity,ph,rainfall',
+            {'user_id': f'eq.{user_id}'}
+        )
+        
+        return jsonify({'predictions': predictions or []})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 if __name__ == '__main__':
     app.run(debug=True)

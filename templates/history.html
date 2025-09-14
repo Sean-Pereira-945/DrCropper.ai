@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History - Dr. Cropper</title>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: linear-gradient(135deg, rgba(46, 90, 50, 0.9), rgba(74, 124, 89, 0.8)),
+                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e5a32;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .prediction-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .prediction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .crop-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2e5a32;
+            text-transform: capitalize;
+        }
+
+        .confidence {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .prediction-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .no-predictions {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/predict-page" class="back-link">← Back to Predictions</a>
+        <h1>🌾 Your Prediction History</h1>
+        
+        <div id="predictions-container">
+            <div class="no-predictions">Loading your prediction history...</div>
+        </div>
+    </div>
+
+    <script>
+        // Load prediction history
+        async function loadHistory() {
+            try {
+                const userData = localStorage.getItem('currentUser');
+                if (!userData) {
+                    document.getElementById('predictions-container').innerHTML = 
+                        '<div class="no-predictions">Please sign in to view your history.</div>';
+                    return;
+                }
+
+                const user = JSON.parse(userData);
+                const response = await fetch(`/history?email=${encodeURIComponent(user.email)}`);
+                const data = await response.json();
+
+                if (data.predictions && data.predictions.length > 0) {
+                    displayPredictions(data.predictions);
+                } else {
+                    document.getElementById('predictions-container').innerHTML = 
+                        '<div class="no-predictions">No predictions found. Make your first prediction!</div>';
+                }
+            } catch (error) {
+                console.error('Error loading history:', error);
+                document.getElementById('predictions-container').innerHTML = 
+                    '<div class="no-predictions">Error loading prediction history.</div>';
+            }
+        }
+
+        function displayPredictions(predictions) {
+            const container = document.getElementById('predictions-container');
+            container.innerHTML = predictions.map(prediction => `
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <div class="crop-name">${prediction.predicted_crop}</div>
+                        <div class="confidence">${prediction.confidence}% confidence</div>
+                    </div>
+                    <div class="date">Predicted on ${new Date(prediction.created_at).toLocaleDateString()}</div>
+                    <div class="prediction-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Nitrogen</div>
+                            <div class="detail-value">${prediction.nitrogen}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Phosphorus</div>
+                            <div class="detail-value">${prediction.phosphorus}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Potassium</div>
+                            <div class="detail-value">${prediction.potassium}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Temperature</div>
+                            <div class="detail-value">${prediction.temperature}°C</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Humidity</div>
+                            <div class="detail-value">${prediction.humidity}%</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">pH</div>
+                            <div class="detail-value">${prediction.ph}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Rainfall</div>
+                            <div class="detail-value">${prediction.rainfall}mm</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load history when page loads
+        document.addEventListener('DOMContentLoaded', loadHistory);
+    </script>
+</body>
+</html>

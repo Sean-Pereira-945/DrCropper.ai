@@ -168,6 +168,7 @@
 
     <!-- Input Form -->
     <form action="{{ url_for('predict') }}" method="POST">
+      <input type="email" name="user_email" placeholder="Your Email (for saving history)" required>
       <input type="number" step="any" name="N" placeholder="Nitrogen (N)" required>
       <input type="number" step="any" name="P" placeholder="Phosphorus (P)" required>
       <input type="number" step="any" name="K" placeholder="Potassium (K)" required>
@@ -182,6 +183,12 @@
     {% if prediction_text %}
       <h1 id="predi">{{ prediction_text }}</h1>
     {% endif %}
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="/history-page" style="color: #e0ffe0; text-decoration: none; font-size: 1.1rem;">
+        📊 View Prediction History
+      </a>
+    </div>
   </div>
 </body>
 </html>
