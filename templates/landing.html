@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Cropper - AI-Powered Crop Recommendation</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🌾 Dr. Cropper</h1>
+            <p class="subtitle">Empowering Smart Farming for a Sustainable Future</p>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+                AI-powered crop recommendations based on soil and climate conditions
+            </p>
+            <button id="openAuth" class="cta-button">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Dr. Cropper?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Intelligence</h3>
+                    <p>Advanced Random Forest machine learning model trained on comprehensive agricultural datasets for precise crop predictions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Data-Driven Insights</h3>
+                    <p>Analyzes soil fertility, temperature, rainfall, pH, and humidity to provide scientifically-backed recommendations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Sustainable Farming</h3>
+                    <p>Promotes environmentally conscious agriculture by optimizing crop selection for specific soil and climate conditions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Results</h3>
+                    <p>Get immediate crop recommendations with our fast, user-friendly interface designed for farmers and agronomists.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3>Scientific Accuracy</h3>
+                    <p>Built on proven agricultural science with high-accuracy predictions across 22 different crop types.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Impact</h3>
+                    <p>Contributing to food security and sustainable agriculture practices worldwide through smart technology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goals Section -->
+    <section class="goals">
+        <div class="container">
+            <div class="goals-content">
+                <div class="goals-text">
+                    <h2>Our Mission & Goals</h2>
+                    <ul class="goals-list">
+                        <li>Maximize crop yield through data-driven decision making</li>
+                        <li>Reduce agricultural waste and optimize resource utilization</li>
+                        <li>Support farmers with accessible, scientific crop guidance</li>
+                        <li>Promote sustainable farming practices for environmental protection</li>
+                        <li>Bridge the gap between technology and traditional agriculture</li>
+                        <li>Contribute to global food security and agricultural innovation</li>
+                        <li>Empower small-scale farmers with enterprise-level insights</li>
+                        <li>Foster climate-resilient agricultural practices</li>
+                    </ul>
+                </div>
+                <div class="goals-image">
+                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smart farming technology">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Welcome Back</h2>
+            </div>
+            <div class="modal-body">
+                <!-- Login Form -->
+                <form id="loginForm" style="display: block;">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                    </div>
+                    <button type="submit" class="auth-button">Sign In</button>
+                    <div class="auth-switch">
+                        Don't have an account? <a href="#" id="showSignup">Sign up here</a>
+                    </div>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signupForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" name="password" required minlength="6">
+                    </div>
+                    <button type="submit" class="auth-button">Create Account</button>
+                    <div class="auth-switch">
+                        Already have an account? <a href="#" id="showLogin">Sign in here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>

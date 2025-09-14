@@ -34,6 +34,10 @@ except Exception as e:
 
 @flask_app.route("/")
 def Home():
+    return render_template("landing.html")
+
+@flask_app.route("/predict-page")
+def predict_page():
     return render_template("index.html")
 
 @flask_app.route("/predict", methods=["POST"])
