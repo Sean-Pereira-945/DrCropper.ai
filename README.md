@@ -7,7 +7,7 @@ Empowering Smart Farming for a Sustainable Future
 
 <img src="https://img.shields.io/badge/dependencies-up%20to%20date-blue" alt="Dependencies">
 </p>
-# 🌾 Crop Recommender AI  
+Crop Recommender AI  
 **Empowering Smart Farming for a Sustainable Future**  
 
 > A machine learning-powered tool to recommend optimal crops based on soil and climate conditions — helping farmers make data-driven decisions.
