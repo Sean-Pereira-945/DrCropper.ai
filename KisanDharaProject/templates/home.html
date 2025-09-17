@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Kisan Dhara</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .navbar {
+            background: #2e7d32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar h1 {
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .card h3 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .card-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🌾 Kisan Dhara</h1>
+        <div class="nav-links">
+            <a href="/home">Dashboard</a>
+            <a href="/ai-assistant">AI Assistant</a>
+            <a href="/weather">Weather</a>
+            <a href="/market">Market</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h2>Welcome to Your Farming Dashboard</h2>
+        
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>🤖 AI Assistant</h3>
+                <p>Get intelligent crop recommendations and farming advice powered by machine learning.</p>
+                <a href="/ai-assistant" class="card-btn">Access AI Assistant</a>
+            </div>
+            
+            <div class="card">
+                <h3>🌤️ Weather Forecast</h3>
+                <p>Stay updated with accurate weather predictions for better farming decisions.</p>
+                <a href="/weather" class="card-btn">Check Weather</a>
+            </div>
+            
+            <div class="card">
+                <h3>📈 Market Prices</h3>
+                <p>Monitor current market prices and trends for various crops and commodities.</p>
+                <a href="/market" class="card-btn">View Market</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

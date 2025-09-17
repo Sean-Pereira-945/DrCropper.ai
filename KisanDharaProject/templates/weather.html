@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast - Kisan Dhara</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .navbar {
+            background: #2e7d32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar h1 {
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .weather-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .temperature {
+            font-size: 3rem;
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .weather-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .info-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .info-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-value {
+            color: #2e7d32;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🌾 Kisan Dhara</h1>
+        <div class="nav-links">
+            <a href="/home">Dashboard</a>
+            <a href="/ai-assistant">AI Assistant</a>
+            <a href="/weather">Weather</a>
+            <a href="/market">Market</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h2>🌤️ Weather Forecast</h2>
+        
+        <div class="weather-card">
+            <div class="weather-icon">☀️</div>
+            <div class="temperature">28°C</div>
+            <p>Sunny and Clear</p>
+            
+            <div class="weather-info">
+                <div class="info-item">
+                    <div class="info-label">Humidity</div>
+                    <div class="info-value">65%</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Wind Speed</div>
+                    <div class="info-value">12 km/h</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Rainfall</div>
+                    <div class="info-value">0 mm</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">UV Index</div>
+                    <div class="info-value">High</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="weather-card">
+            <h3>Farming Recommendations</h3>
+            <p>Based on current weather conditions:</p>
+            <ul style="text-align: left; margin-top: 1rem; color: #666;">
+                <li>Good day for harvesting</li>
+                <li>Consider irrigation for water-sensitive crops</li>
+                <li>UV protection recommended for outdoor work</li>
+                <li>Ideal conditions for pesticide application</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

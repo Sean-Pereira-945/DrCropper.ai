@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Prices - Kisan Dhara</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .navbar {
+            background: #2e7d32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .navbar h1 {
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .market-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #2e7d32;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .price-up {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .price-down {
+            color: #f44336;
+            font-weight: bold;
+        }
+        
+        .price-stable {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🌾 Kisan Dhara</h1>
+        <div class="nav-links">
+            <a href="/home">Dashboard</a>
+            <a href="/ai-assistant">AI Assistant</a>
+            <a href="/weather">Weather</a>
+            <a href="/market">Market</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h2>📈 Market Prices</h2>
+        <p>Current market prices for various crops and commodities</p>
+        
+        <div class="market-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Current Price (₹/kg)</th>
+                        <th>Change</th>
+                        <th>Market</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🌾 Wheat</td>
+                        <td>₹25.50</td>
+                        <td class="price-up">+₹1.20 (↑)</td>
+                        <td>Delhi Mandi</td>
+                        <td>Today, 10:30 AM</td>
+                    </tr>
+                    <tr>
+                        <td>🌾 Rice</td>
+                        <td>₹32.00</td>
+                        <td class="price-down">-₹0.80 (↓)</td>
+                        <td>Mumbai Market</td>
+                        <td>Today, 11:15 AM</td>
+                    </tr>
+                    <tr>
+                        <td>🌽 Maize</td>
+                        <td>₹18.75</td>
+                        <td class="price-up">+₹2.10 (↑)</td>
+                        <td>Pune APMC</td>
+                        <td>Today, 9:45 AM</td>
+                    </tr>
+                    <tr>
+                        <td>🥔 Potato</td>
+                        <td>₹12.30</td>
+                        <td class="price-stable">No change</td>
+                        <td>Kolkata Market</td>
+                        <td>Today, 8:20 AM</td>
+                    </tr>
+                    <tr>
+                        <td>🧅 Onion</td>
+                        <td>₹28.90</td>
+                        <td class="price-up">+₹3.50 (↑)</td>
+                        <td>Nashik APMC</td>
+                        <td>Today, 12:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>🍅 Tomato</td>
+                        <td>₹35.60</td>
+                        <td class="price-down">-₹4.20 (↓)</td>
+                        <td>Bangalore Market</td>
+                        <td>Today, 10:15 AM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
